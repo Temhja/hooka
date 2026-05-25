@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hookah Restaurant | مطعم هوكا</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- LANGUAGE TOGGLE -->
+  <button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button>
+
+  <!-- INTRO SCREEN -->
+  <div class="intro-screen" id="introScreen">
+    <div class="intro-content">
+      <div class="intro-logo-area">
+        <!-- Logo placeholder — replace with <img src="assets/logo.png"> -->
+        <div class="intro-logo-placeholder">
+          <div class="logo-ring logo-ring-1"></div>
+          <div class="logo-ring logo-ring-2"></div>
+          <div class="logo-ring logo-ring-3"></div>
+          <svg class="intro-icon" viewBox="0 0 80 120" fill="none">
+            <rect x="35" y="4" width="10" height="22" rx="3" fill="#C4622D"/>
+            <ellipse cx="40" cy="30" rx="14" ry="8" fill="#d4744a"/>
+            <path d="M27 40 Q14 55 16 72 Q20 90 40 93 Q60 90 64 72 Q66 55 53 40Z" fill="#1a1a1a"/>
+            <path d="M27 40 Q14 55 16 72 Q20 90 40 93 Q60 90 64 72 Q66 55 53 40Z" fill="none" stroke="#C4622D" stroke-width="1.5" opacity="0.4"/>
+            <ellipse cx="40" cy="93" rx="12" ry="5" fill="#111"/>
+            <rect x="37" y="98" width="6" height="15" rx="3" fill="#0d0d0d"/>
+            <ellipse cx="40" cy="114" rx="16" ry="5" fill="#0a0a0a"/>
+            <path d="M26 68 Q12 72 10 84" stroke="#C4622D" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <circle cx="9" cy="87" r="3.5" fill="#C4622D" opacity="0.7"/>
+            <path d="M54 68 Q68 72 70 84" stroke="#C4622D" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <circle cx="71" cy="87" r="3.5" fill="#C4622D" opacity="0.7"/>
+          </svg>
+        </div>
+      </div>
+      <div class="intro-text">
+        <h1 class="intro-title" data-ar="هـوكـا" data-en="HOOKAH">هـوكـا</h1>
+        <div class="intro-divider"></div>
+        <p class="intro-sub" data-ar="قائمة الطعام والأراكيل" data-en="Food & Hookah Menu">قائمة الطعام والأراكيل</p>
+      </div>
+      <button class="intro-cta" onclick="enterSite()" data-ar="استكشف القائمة" data-en="Explore Menu">
+        استكشف القائمة
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN SITE -->
+  <div class="site" id="siteWrapper" style="display:none">
+
+    <!-- HEADER -->
+    <header class="header" id="siteHeader">
+      <div class="header-inner">
+        <div class="header-brand">
+          <!-- Replace with <img class="header-logo-img" src="assets/logo.png"> -->
+          <span class="brand-name" data-ar="هوكا" data-en="HOOKAH">هوكا</span>
+        </div>
+        <nav class="header-nav">
+          <button class="hnav-btn active" onclick="showSection('menu')" data-ar="القائمة" data-en="Menu">القائمة</button>
+          <button class="hnav-btn" onclick="showSection('about')" data-ar="عن المطعم" data-en="About">عن المطعم</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="hero-eyebrow" data-ar="مطعم هوكا" data-en="Hookah Restaurant">مطعم هوكا</p>
+        <h2 class="hero-h" data-ar="قائمة طعامنا" data-en="Our Menu">قائمة طعامنا</h2>
+      </div>
+      <div class="hero-scroll-hint">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <div class="menu-section" id="menuSection">
+
+      <!-- SEARCH + STATS BAR -->
+      <div class="top-bar">
+        <div class="search-wrap">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" class="search-input" id="searchInput"
+            placeholder="ابحث..."
+            data-placeholder-ar="ابحث عن طبق أو فئة..."
+            data-placeholder-en="Search dish or category..."
+            oninput="filterItems(this.value)">
+        </div>
+        <span class="item-count" id="itemCount"></span>
+      </div>
+
+      <!-- CATEGORY NAV -->
+      <div class="cat-nav-wrap" id="catNavWrap">
+        <div class="cat-nav" id="catNav"></div>
+      </div>
+
+      <!-- LOADING -->
+      <div class="loading-state" id="loadingState">
+        <div class="loading-dots"><span></span><span></span><span></span></div>
+      </div>
+
+      <!-- GRID -->
+      <div class="grid-wrap" id="gridWrap" style="display:none">
+        <div class="menu-grid" id="menuGrid"></div>
+      </div>
+
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about-section" id="aboutSection" style="display:none">
+      <div class="about-wrap">
+        <p class="about-eyebrow" data-ar="من نحن" data-en="About Us">من نحن</p>
+        <h2 class="about-h" data-ar="مطعم هوكا" data-en="Hookah Restaurant">مطعم هوكا</h2>
+        <p class="about-p" data-ar="وجهتك المثالية للأراكيل الفاخرة والمأكولات الشهية في أجواء راقية. نقدم تجربة فريدة تجمع بين الطعم الأصيل وأناقة التصميم العصري." data-en="Your ultimate destination for premium hookahs and delicious food in an elegant setting. We deliver a unique experience blending authentic flavors with modern refined design.">وجهتك المثالية للأراكيل الفاخرة والمأكولات الشهية في أجواء راقية.</p>
+        <div class="about-stats">
+          <div class="astat"><span class="astat-n">100+</span><span class="astat-l" data-ar="صنف" data-en="Items">صنف</span></div>
+          <div class="astat-div"></div>
+          <div class="astat"><span class="astat-n">20+</span><span class="astat-l" data-ar="نوع أرجيلة" data-en="Hookah Types">نوع أرجيلة</span></div>
+          <div class="astat-div"></div>
+          <div class="astat"><span class="astat-n">★ 4.9</span><span class="astat-l" data-ar="تقييم" data-en="Rating">تقييم</span></div>
+        </div>
+        <a class="about-link" href="http://www.hookah-restaurant.com" target="_blank">www.hookah-restaurant.com ↗</a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p data-ar="© 2025 مطعم هوكا" data-en="© 2025 Hookah Restaurant">© 2025 مطعم هوكا</p>
+    </footer>
+
+  </div>
+
+  <!-- ITEM MODAL -->
+  <div class="modal-bg" id="modalBg" onclick="closeModal(event)">
+    <div class="modal" id="modalBox">
+      <button class="modal-x" onclick="closeModal()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="modal-img-area" id="modalImgArea">
+        <img id="modalImg" src="" alt="">
+        <div class="modal-img-fallback" id="modalFallback">
+          <svg width="48" height="72" viewBox="0 0 80 120" fill="none">
+            <rect x="35" y="4" width="10" height="22" rx="3" fill="#C4622D" opacity="0.4"/>
+            <path d="M27 40 Q14 55 16 72 Q20 90 40 93 Q60 90 64 72 Q66 55 53 40Z" fill="#e8e3de"/>
+          </svg>
+        </div>
+      </div>
+      <div class="modal-body">
+        <span class="modal-cat-tag" id="modalCat"></span>
+        <h3 class="modal-title" id="modalTitle"></h3>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-footer-row">
+          <div class="modal-price-wrap">
+            <span class="modal-price" id="modalPrice"></span>
+            <span class="modal-curr" id="modalCurr">د.ع</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
